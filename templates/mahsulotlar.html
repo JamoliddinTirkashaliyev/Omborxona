@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Mahsulotlar</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{% url 'logout' %}">Logout</a></li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <div class="col-md-12">
+        <div class="card card-dark">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Maxsulot
+                        qo'shish
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table" style="text-align: center;">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 15px">T/r</th>
+                        <th scope="col" style="width: 255px; text-align: center;">Nomi</th>
+                        <th scope="col" style="text-align: center;">Brendi</th>
+                        <th scope="col" style="text-align: center;">Narxi</th>
+                        <th scope="col" style="text-align: center;">Miqdori</th>
+                        <th scope="col" style="text-align: center;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for mahsulot in mahsulotlar %}
+                    <tr>
+                        <th scope="row">{{mahsulot.id}}</th>
+                        <td>{{mahsulot.nom}}</td>
+                        <td>{{mahsulot.brend}}</td>
+                        <td>{{mahsulot.narx2}}</td>
+                        <td>{{mahsulot.miqdor}}</td>
+                        <td><a href="#">
+                            <button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button>
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header bg-dark">
+                    <h4 class="modal-title">Yangi mahsulot</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <form action="#" id="new-product-form">
+                    <div class="modal-body">
+                        <label for="new-product-name">Nomi:</label>
+                        <input type="text" name="pr_name" placeholder="Mahsulot nomi..." id="new-product-name"
+                               class="form-control" required>
+                        <br>
+                        <label for="new-product-name">Brend:</label>
+                        <input type="text" name="pr_brand" placeholder="Mahsulot brendi..." id="new-product-brend"
+                               class="form-control" required>
+                        <br>
+                        <label for="new-product-name">Narxi:</label>
+                        <input type="text" name="pr_price" placeholder="Maxsulot narxi..." id="new-product-price"
+                               class="form-control" required>
+                        <br>
+                        <label for="new-product-name">Miqdori:</label>
+                        <input type="number" name="pr_amount" placeholder="Mahsulot miqdori..." id="new-product-amount"
+                               class="form-control" required>
+                        <br>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Qo`shish</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Yopish</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./wrapper -->
+{% endblock %}
+
