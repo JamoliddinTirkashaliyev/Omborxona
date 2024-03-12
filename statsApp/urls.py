@@ -4,5 +4,6 @@ from .views import *
 
 
 urlpatterns = [
+    path('',StatistikaView.as_view(), name="statistika")
 
 ]

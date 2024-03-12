@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% block title %} Mahsulotlar {% endblock%}
+{% block bolim %} {{ tarqatuvchi.bolim }} {%endblock%}
+{% block full_name %} {{ tarqatuvchi.first_name }}  {{ tarqatuvchi.last_name }} {%endblock%}
+{% block mahsulot_active %} active {% endblock%}
+
 {% block content %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -26,6 +31,10 @@
                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Maxsulot
                         qo'shish
                     </button>
+                    <form method="get">
+                        <input type="text" name="search" placeholder="Nom, brend...">
+                        <button class="btn btn-primary">Qidirish</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">
@@ -35,7 +44,8 @@
                         <th scope="col" style="width: 15px">T/r</th>
                         <th scope="col" style="width: 255px; text-align: center;">Nomi</th>
                         <th scope="col" style="text-align: center;">Brendi</th>
-                        <th scope="col" style="text-align: center;">Narxi</th>
+                        <th scope="col" style="text-align: center;">Keldi</th>
+                        <th scope="col" style="text-align: center;">Sotish</th>
                         <th scope="col" style="text-align: center;">Miqdori</th>
                         <th scope="col" style="text-align: center;"></th>
                     </tr>
@@ -46,11 +56,15 @@
                         <th scope="row">{{mahsulot.id}}</th>
                         <td>{{mahsulot.nom}}</td>
                         <td>{{mahsulot.brend}}</td>
-                        <td>{{mahsulot.narx2}}</td>
-                        <td>{{mahsulot.miqdor}}</td>
-                        <td><a href="#">
-                            <button type="submit" class="btn btn-danger" data-toggle="modal">Tahrirlash</button>
-                        </a></td>
+                        <td>{{mahsulot.narx1}} so'm</td>
+                        <td>{{mahsulot.narx2}} so'm</td>
+                        <td>{{mahsulot.miqdor}} {{mahsulot.olchov}}</td>
+                        <td><a href="/main/mahsulotlar/{{mahsulot.id}}/tahrirlash/">
+                            <button class="btn btn-warning" data-toggle="modal">Tahrirlash</button>
+                        </a>
+                            <a href="/main/mahsulot_ochir/{{mahsulot.id}}/">
+                                <button class="btn btn-danger" data-toggle="modal">O'chirish</button>
+                            </a>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -71,24 +85,38 @@
                 </div>
 
                 <!-- Modal body -->
-                <form action="#" id="new-product-form">
+                <form method="post">
+                    {% csrf_token %}
                     <div class="modal-body">
                         <label for="new-product-name">Nomi:</label>
-                        <input type="text" name="pr_name" placeholder="Mahsulot nomi..." id="new-product-name"
+                        <input type="text" name="nom" placeholder="Mahsulot nomi..." id="new-product-name"
                                class="form-control" required>
                         <br>
                         <label for="new-product-name">Brend:</label>
-                        <input type="text" name="pr_brand" placeholder="Mahsulot brendi..." id="new-product-brend"
+                        <input type="text" name="brand" placeholder="Mahsulot brendi..." id="new-product-brend"
                                class="form-control" required>
                         <br>
-                        <label for="new-product-name">Narxi:</label>
-                        <input type="text" name="pr_price" placeholder="Maxsulot narxi..." id="new-product-price"
+                        <label for="new-product-name">Keldi:</label>
+                        <input type="number" name="narx1" placeholder="Kelgan barxi..." id="new-product1-price"
                                class="form-control" required>
+                        <br>
+                        <label for="new-product-name">Sotish:</label>
+                        <input type="number" name="narx2" placeholder="Sotish narxi..." id="new-product2-price"
+                               class="form-control">
                         <br>
                         <label for="new-product-name">Miqdori:</label>
-                        <input type="number" name="pr_amount" placeholder="Mahsulot miqdori..." id="new-product-amount"
+                        <input type="number" name="miqdor" placeholder="Mahsulot miqdori..." id="new-product-amount"
                                class="form-control" required>
                         <br>
+                        <label for="new-product-name">Olchov:</label>
+                        <input type="text" name="olchov" placeholder="Mahsulot o'lchovi..." id="new-product-amount2"
+                               class="form-control" required>
+                        <br>
+                        <label for="new-product-name">Sana:</label>
+                        <input type="date" name="sana" placeholder="Mahsulot o'lchovi..." id="new-product-amount3"
+                               class="form-control" required>
+                        <br>
+
                     </div>
 
                     <!-- Modal footer -->
